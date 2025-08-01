@@ -12,6 +12,11 @@ public class Frame extends JFrame {
     setResizable(false);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setLayout(new BorderLayout());
+
+    add(new DisplayPanel(), BorderLayout.NORTH);
+
+    add(new ButtonsPanel());
+
     setVisible(true);
   }
 }

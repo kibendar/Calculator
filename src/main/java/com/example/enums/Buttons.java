@@ -20,7 +20,8 @@ public enum Buttons {
   ALL_CLEAR("AC"),
   DOT("."),
   POS_NEG("+/-"),
-  SQRT("√");
+  SQRT("√"),
+  MOD("%");
 
   private final String button;
 
