@@ -8,23 +8,6 @@ public class CalcOperations {
   private String second_num = null;
   private String operator = null;
 
-  private int buttonArrLength = Buttons.values().length;
-
-  private String[] rightButtons = {
-      Buttons.DIVIDE.getButton(), Buttons.MULTIPLY.getButton(),
-      Buttons.MINUS.getButton(), Buttons.PLUS.getButton(),
-      Buttons.EQUAL.getButton()};
-
-  private String[] topButtons = {Buttons.ALL_CLEAR.getButton(),
-                                 Buttons.POS_NEG.getButton(),
-                                 Buttons.MOD.getButton()};
-
-  public void buttonActions() {
-
-    for (int i = 0; i < buttonArrLength; i++) {
-    }
-  }
-
   public String getFirst_num() { return first_num; }
   public void setFirst_num(String first_num) { this.first_num = first_num; }
   public String getSecond_num() { return second_num; }
