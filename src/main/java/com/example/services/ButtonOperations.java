@@ -62,6 +62,13 @@ public class ButtonOperations {
 
         if (buttonValue.equals("=")) {
           equalSignEqual();
+        } else if ("+-÷×".contains(buttonValue)) {
+
+          FieldSign.FIRST_NUM.setSign(label.getText());
+
+          label.setText("0");
+
+          FieldSign.SECOND_NUM.setSign("0");
         }
       }
 
@@ -112,6 +119,8 @@ public class ButtonOperations {
       setColorButtons(buttonValue);
 
       buttonsPanel.add(button);
+
+      button.addActionListener(actionListener());
     }
   }
 }
