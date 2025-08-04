@@ -3,6 +3,7 @@ package com.example.services;
 import com.example.enums.Buttons;
 import com.example.enums.Colors;
 import com.example.enums.FieldSign;
+import com.example.utils.UtilsMethods;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -16,6 +17,8 @@ public class ButtonOperations {
   private final ButtonsPanel buttonsPanel;
 
   private final Label label;
+
+  private final UtilsMethods utilsMethods;
 
   private final Font FONT = new Font("Arial", Font.PLAIN, 30);
 
@@ -32,10 +35,12 @@ public class ButtonOperations {
 
   private final JButton button;
 
-  ButtonOperations(JButton button, ButtonsPanel buttonsPanel, Label label) {
+  ButtonOperations(JButton button, ButtonsPanel buttonsPanel, Label label,
+                   UtilsMethods utilsMethods) {
     this.button = button;
     this.buttonsPanel = buttonsPanel;
     this.label = label;
+    this.utilsMethods = utilsMethods;
   }
 
   private void setColorButtons(String buttonValue) {
@@ -60,49 +65,53 @@ public class ButtonOperations {
 
         String buttonValue = button.getText();
 
-        if (buttonValue.equals("=")) {
-          equalSignEqual();
-        } else if ("+-÷×".contains(buttonValue)) {
+        if (Arrays.asList(rightButtons).contains(buttonValue)) {
 
-          FieldSign.FIRST_NUM.setSign(label.getText());
+          if (buttonValue.equals("=")) {
 
-          label.setText("0");
+            utilsMethods.signEqualEqual();
+          } else if ("+-÷×".contains(buttonValue)) {
 
-          FieldSign.SECOND_NUM.setSign("0");
-        }
-      }
+            if (FieldSign.OPERATOR.getSign() == null) {
 
-      private void equalSignEqual() {
+              utilsMethods.signEqualNull();
+            }
+          }
 
-        if (!FieldSign.FIRST_NUM.getSign().equals(null)) {
+          FieldSign.OPERATOR.setSign(buttonValue);
 
-          FieldSign.SECOND_NUM.setSign(label.getText());
+        } else if (Arrays.asList(topButtons).contains(buttonValue)) {
 
-          double firstNum = Double.parseDouble(FieldSign.FIRST_NUM.getSign());
-          double secondNum = Double.parseDouble(FieldSign.SECOND_NUM.getSign());
+          if (buttonValue.equals("AC")) {
 
-          rightButtonsOperations(firstNum, secondNum);
+            utilsMethods.clearAll();
+          } else if (buttonValue.equals("+/-")) {
+
+            utilsMethods.numDisplay(-1);
+          } else {
+
+            utilsMethods.numDisplay(100);
+          }
+        } else {
+
+          if (buttonValue.equals(".")) {
+            if (!label.getText().contains(buttonValue)) {
+
+              label.setText(label.getText() + buttonValue);
+            }
+          } else if ("0123456789".contains(buttonValue)) {
+
+            if (label.getText().equals("0")) {
+
+              label.setText(buttonValue);
+            } else {
+
+              label.setText(label.getText() + buttonValue);
+            }
+          }
         }
       }
     };
-  }
-
-  protected void rightButtonsOperations(double firstNum, double secondNum) {
-
-    switch (FieldSign.OPERATOR.getSign()) {
-    case "+":
-      label.setText(String.valueOf(firstNum + secondNum));
-      break;
-    case "-":
-      label.setText(String.valueOf(firstNum - secondNum));
-      break;
-    case "*":
-      label.setText(String.valueOf(firstNum * secondNum));
-      break;
-    case "/":
-      label.setText(String.valueOf(firstNum / secondNum));
-      break;
-    }
   }
 
   public void buttonActions() {
