@@ -1,18 +1,13 @@
 package com.example.services;
 
 public class CalcService {
+  private final ButtonOperations operations;
 
-  private final Frame frame;
-
-  private final DisplayPanel panel;
-
-  private final Label label;
-
-  CalcService(Frame frame, DisplayPanel panel, Label label) {
-    this.frame = frame;
-    this.panel = panel;
-    this.label = label;
+  public CalcService(ButtonOperations operations) {
+    this.operations = operations;
   }
 
-  public void runService() {}
+  public void runService() {
+    operations.buttonActions();
+  }
 }
